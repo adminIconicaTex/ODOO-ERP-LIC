@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="payment_acquirer_form_culqi" model="ir.ui.view">
+			<field name="name">payment.acquirer.form.culqi</field>
+			<field name="model">payment.acquirer</field>
+			<field name="inherit_id" ref="payment.payment_acquirer_form" />
+			<field name="arch" type="xml">
+				<xpath expr='//group[@name="acquirer"]' position='after'>
+					<group attrs="{'invisible': [('provider', '!=', 'culqi')]}">
+						<group>
+							<field name="autoconfirm_invoice"/>
+							<field name="autoconfirm_payment"/>
+						</group>
+						
+						<group>
+							<h3>Pruebas</h3>
+							<field name="culqi_public_key" password="True"/>
+							<field name="culqi_private_key" password="True"/>
+						</group>
+						<group >
+							<h3>Producción</h3>
+							<field name="culqi_public_key_produccion" password="True"/>
+							<field name="culqi_private_key_produccion" password="True"/>
+						</group>				
+					</group>					
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>
