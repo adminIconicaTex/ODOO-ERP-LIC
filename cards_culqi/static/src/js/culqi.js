@@ -139,11 +139,11 @@ odoo.define('module.CQ', function(require)
                 var product_lines = response.result.product_lines;
                 var customer = response.result.customer;
                 var currency_name = response.result.currency_name;
+                var acquirer_id = response.result.acquirer_id;
 
                 global_amount_total = preference.amount_total
                 var amount = parseInt(String(String(parseFloat(preference.amount_total).toFixed(2)).replace(".","")).replace(",",""));
-                    
-                //console.log(state_enviroment)
+
                 if(state_enviroment=='test')
                 {                                        
                     culqi_enviroment = 'sandbox'  
