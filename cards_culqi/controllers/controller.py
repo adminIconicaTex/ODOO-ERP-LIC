@@ -113,7 +113,7 @@ class culqi_controller(http.Controller):
         _logger.warning("PARAMS CHARGE")
         _logger.warning(params)
 
-        params = {
+        params_customer = {
                     "address":str(params['customer']['street'])[:99],
                     "address_city": state_name,
                     "country_code": params['customer']['country_code'],
@@ -126,7 +126,7 @@ class culqi_controller(http.Controller):
         _logger.warning("process_culqi_payment params")
         _logger.warning(params)
 
-        res_customer = customer.create(params)
+        res_customer = customer.create(params_customer)
 
         _logger.warning(str('CUSTOMER'))
         _logger.warning(res_customer)
@@ -135,7 +135,7 @@ class culqi_controller(http.Controller):
                 response['url_send'] = str(base_url) + str("/shop/payment?state=fail") + str("&message=") + str(res_customer['data']['merchant_message'])
                 if('Un cliente esta registrado actualmente con este email.' in str(res_customer['data']['merchant_message'])):
                     _partner = self.get_partner_relation_email_id_culqi(params['customer']['email'])
-                    _logger.warning("GOTPARTNER")
+                    _logger.warning("GOT PARTNER AFTER EMAIL ERROR")
                     _logger.warning(_partner)
                     if(_partner):
                         self.add_partner_relation(params['customer']['id'], _partner.id_culqi)
@@ -147,7 +147,7 @@ class culqi_controller(http.Controller):
         
         try:
             # add culqi id to odoo customer 
-                                    #@id:  odoo customer id           #@ culqi customer id 
+                                      #@id:  odoo customer id   #@ culqi customer id 
             self.add_partner_relation(params['customer']['id'], res_customer['data']['id'])  
         except:
             _logger.warning(str('122 ERROR'))
@@ -194,31 +194,39 @@ class culqi_controller(http.Controller):
             customer.update(id_=_customer_id, data=metadatada)
         except:
                 pass
-
+        
+        params['culqi_preference'] = kw.get('culqi_preference')
+        params['customer'] = kw.get('customer')
+        params['token'] = kw.get('token')
+        params['enviroment'] = kw.get('enviroment')
+        params['odoo_order_id'] = kw.get('odoo_order_id')
+        params['acquirer_id'] = kw.get('acquirer_id')
+        
         # validate with id stored in odoo to optimize algorithm 
-        res_charge = charge.create({
-                                        "title": str(order_number),
-                                        "order_number": str(order_number),                                        
-                                        "amount": params['culqi_preference']['amount'],
-                                        "capture": True,
-                                        "currency_code": _currency_code,
-                                        "description": params['culqi_preference']['description'],
-                                        "email":  params['customer']['email'],
-                                        "first_name": customer_name,
-                                        "address": params['customer']['street'],
-                                        "address_city": state_name,
-                                        "phone_number": params['customer']['mobile'] if (params['customer']['mobile']) else params['customer']['phone'],
-                                        "country_code": params['customer']['country_code'],
-                                        "installments": 0,
-                                        "source_id": params['token'],
-                                        "metadata": {
-                                                        "order_name":str(order_number),
-                                                        "customer_id": str(_customer_id),
-                                                        "customer_name":str(customer_name)[:50],
-                                                        "indentification":str(params['customer']['vat'])
-                                                    }
-                                    })
-
+        new_charge = {
+                        "title": str(order_number),
+                        "order_number": str(order_number),                                        
+                        "amount": params['culqi_preference']['amount'],
+                        "capture": True,
+                        "currency_code": _currency_code,
+                        "description": params['culqi_preference']['description'],
+                        "email":  params['customer']['email'],
+                        "first_name": customer_name,
+                        "address": params['customer']['street'],
+                        "address_city": state_name,
+                        "phone_number": params['customer']['mobile'] if (params['customer']['mobile']) else params['customer']['phone'],
+                        "country_code": params['customer']['country_code'],
+                        "installments": 0,
+                        "source_id": params['token'],
+                        "metadata": {
+                                        "order_name":str(order_number),
+                                        "customer_id": str(_customer_id),
+                                        "customer_name":str(customer_name)[:50],
+                                        "indentification":str(params['customer']['vat'])
+                                    }
+                    }
+        
+        res_charge = charge.create(new_charge)
           
         if(res_charge['data']["object"] == "error"):
                 response = {}
@@ -229,7 +237,7 @@ class culqi_controller(http.Controller):
             
             pass
         else:
-            charge.update(id_=res_charge['data']['id'], data=metadatada) 
+            charge.update(id_=res_charge['data']['id'], data=new_charge['metadata']) 
             #sale_order_transaction_rel = request.env['sale.order.transaction.rel'].sudo().search(['sale_order_id','=',params['odoo_order_id']])
             query = "select transaction_id from sale_order_transaction_rel where sale_order_id = " + str(params['odoo_order_id']) + " order by transaction_id desc limit 1"
             request.cr.execute(query)
@@ -237,6 +245,10 @@ class culqi_controller(http.Controller):
             if(sale_order_transaction_rel):
                 for rel in sale_order_transaction_rel:
                     odoo_transaction = request.env['payment.transaction'].sudo().browse(rel['transaction_id'])
+                    _logger.warning("++++++++++++++++++++++++++++++++++++")
+                    _logger.warning(params['acquirer_id'])
+                    _logger.warning(odoo_transaction.acquirer_id)
+                    _logger.warning("++++++++++++++++++++++++++++++++++++")
                     if (int(odoo_transaction.acquirer_id) == int(params['acquirer_id'])):
                         odoo_payment_transaction = odoo_transaction.sudo().update({     'state_message':str(res_charge['data']['outcome']['merchant_message']),
                                                                                         'culqi_response':str(res_charge['data']),
@@ -540,5 +552,6 @@ class culqi_controller(http.Controller):
                         'product_lines':str(product_titles)[:75],
                         'customer':res_partner_shipping,
                         'checkout_items':checkout_items,
-                        'currency_name':checkout_items[0]['currency_id']
+                        'currency_name':checkout_items[0]['currency_id'],
+                        'acquirer_id':params['acquirer_id'],
                     }           
