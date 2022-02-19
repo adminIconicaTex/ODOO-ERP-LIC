@@ -31,5 +31,8 @@
     'qweb': [
               
             ],
+    'external_dependencies': {
+                                'python' : ['culqi'],
+                             },
     'installable': True,
 }
