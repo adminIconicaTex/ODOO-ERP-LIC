@@ -1,35 +1,37 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "cards_culqi",
-
-    'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
-
-    'description': """
-        Long description of module's purpose
-    """,
-
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'Uncategorized',
+    'name': 'Culqi Tarjetas - Website Checkout',
+    'description': "Recibe pagos con tarjetas a través del sitio web de comercio electrónico en divisa PEN & USD",
+    'author': "ROCKSCRIPTS",
+    'website': "http://instagram.com/rockscripts",
+    'summary': "Culqi para sitio web de comercio electrónico",
     'version': '0.1',
-
-    # any module necessary for this one to work correctly
-    'depends': ['base'],
-
-    # always loaded
+    "license": "OPL-1",
+    'price':'100',
+    'currency':'USD',
+    'support': 'rockscripts@gmail.com',
+    'category': 'Website',
+    "images": ["images/banner.png"],
+    'depends': ['base','web','sale','website','website_sale','payment','account'],
     'data': [
-        # 'security/ir.model.access.csv',
-        'views/views.xml',
-        'views/templates.xml',
-    ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
+                #'views/payment_acquirer.xml',
+                #'views/sale_order.xml',
+                #'views/payment_transaction.xml',
+                #'views/partner.xml',
+                #'data/culqi.xml',
+            ],
+    #'assets':  {
+    #                'web.assets_frontend': [
+    #                                            '/cards_culqi/static/src/js/jquery.js',
+    #                                            '/cards_culqi/static/src/js/culqi.js',
+    #                                            '/cards_culqi/static/src/css/culqi.css'
+    #                                        ]
+    #            },
+    'qweb': [
+              
+            ],
+    'external_dependencies': {
+                                'python' : ['culqi'],
+                             },
+    'installable': True,
 }
