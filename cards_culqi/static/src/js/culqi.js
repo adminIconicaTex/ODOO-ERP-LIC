@@ -55,20 +55,18 @@ odoo.define('module.CQ', function(require)
             
         }
         
-        var default_button = $("form.o_payment_form").find("button[name='o_payment_submit_button']");
+        var default_button = $("form.o_payment_form").find("button#o_payment_form_pay");
 
         if ($("#payment_method").length > 0) {
-            $("button[name='o_payment_submit_button']").after(function() {
+            $("#o_payment_form_pay").after(function() {
                 initCulqiPagoAcquirer();    
             });
         }
         
-        $("button[name='o_payment_submit_button']").on("click",function(event)
+        $("button#o_payment_form_pay").on("click",function()
         {
             event.preventDefault();
-            var data_provider = $("input[data-payment-option-type='acquirer']:checked").attr("data-provider");
-            console.log("data_provider");
-            console.log(data_provider);
+            var data_provider = $("input[name='pm_id']:checked").attr("data-provider");
             if(data_provider=="culqi")
             {
                 Culqi.open();
@@ -76,9 +74,8 @@ odoo.define('module.CQ', function(require)
                 
                 setInterval(function()
                 {
-                    console.log("setInterval");
-                    $("button[name='o_payment_submit_button']").find("span.o_loader").remove();
-                    $("button[name='o_payment_submit_button']").removeAttr("disabled");
+                    $("button#o_payment_form_pay").find("span.o_loader").remove();
+                    $("button#o_payment_form_pay").removeAttr("disabled");
                 }, 1);
                 
             }     
@@ -113,7 +110,7 @@ odoo.define('module.CQ', function(require)
     
     function createPreference(acquirer, Culqi)
     {
-        var partner_id = $("form.o_payment_form").attr("data-partner-id");
+        var partner_id = $(".o_payment_form").attr("data-partner-id");
         var acquirer_id = $('input[data-provider="culqi"]').attr("data-acquirer-id");
         var online_payment = "no";
 
@@ -143,7 +140,26 @@ odoo.define('module.CQ', function(require)
 
                 global_amount_total = preference.amount_total
                 var amount = parseInt(String(String(parseFloat(preference.amount_total).toFixed(2)).replace(".","")).replace(",",""));
-
+                try
+                {
+                    if(amount<300)
+                    {
+                        swal({
+                                title: "Orden de Venta",
+                                text: "Permite totales mayor que 3 Soles o bien 3 Dólares Americanos",
+                                type: "error",
+                                showCancelButton: true,
+                                cancelButtonText: "OK",
+                                closeOnCancel: true
+                            });
+                        return false;
+                    }
+                }
+                catch(error)
+                {}
+                
+                    
+                //console.log(state_enviroment)
                 if(state_enviroment=='test')
                 {                                        
                     culqi_enviroment = 'sandbox'  
@@ -166,7 +182,8 @@ odoo.define('module.CQ', function(require)
                 odoo_order_customer = customer;
                 checkout_items = response.result.checkout_items;
                 _acquirer_id = acquirer_id;
-
+                console.log('culqi_transaction');
+                console.log(culqi_transaction);
                 Culqi.settings(culqi_transaction);               
             }
         });
@@ -510,7 +527,15 @@ window.culqijs = function(e) {
             }
         } else if ("string" == typeof e.data.object) switch (e.data.object) {
             case "error":
-                console.log("%cJS%c" + e.data.type.replace(/_/g, " ") + "%c" + e.data.param + "%c\n" + e.data.merchant_message + ": " + e.data.user_message, "padding: 5px; border-radius: 4px 0 0 4px; background-color: #38d9a9; color: #222b31; text-transform: uppercase; font-size: 10px;font-family: sans-serif", "padding: 5px; background-color: #222b31; color: #ff4f4f; text-transform: uppercase; font-size: 10px;font-family: sans-serif;border-left: 5px solid #ff4f4f;", "padding: 5px; border-radius: 0 4px 4px 0; background-color: #08696b; color: #fff; text-transform: uppercase; font-size: 10px;font-family: sans-serif; font-weight: bold;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3)", "color: #FFF; font-family: sans-serif");
+                swal({
+                    title: "Orden de Venta",
+                    text: e.data.user_message,
+                    type: "success",
+                    showCancelButton: true,
+                    cancelButtonText: "OK",
+                    closeOnCancel: true
+                });
+                //alert("%cJS%c" + e.data.type.replace(/_/g, " ") + "%c" + e.data.param + "%c\n" + e.data.merchant_message + ": " + e.data.user_message, "padding: 5px; border-radius: 4px 0 0 4px; background-color: #38d9a9; color: #222b31; text-transform: uppercase; font-size: 10px;font-family: sans-serif", "padding: 5px; background-color: #222b31; color: #ff4f4f; text-transform: uppercase; font-size: 10px;font-family: sans-serif;border-left: 5px solid #ff4f4f;", "padding: 5px; border-radius: 0 4px 4px 0; background-color: #08696b; color: #fff; text-transform: uppercase; font-size: 10px;font-family: sans-serif; font-weight: bold;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3)", "color: #FFF; font-family: sans-serif");
                 var n = function() {
                     var e = navigator.userAgent.toLowerCase();
                     return -1 != e.indexOf("msie") && parseInt(e.split("msie")[1])
