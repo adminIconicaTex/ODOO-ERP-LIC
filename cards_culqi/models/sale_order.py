@@ -22,5 +22,5 @@ class sale_order(models.Model):
     culqi_outcome_merchant_message = fields.Char("Mensaje para el vendedor")
 
     def action_post(self):
-        response = super(account_move, self).action_post()
+        response = super(sale_order, self).action_post()
         
