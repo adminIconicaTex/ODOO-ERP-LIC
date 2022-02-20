@@ -8,21 +8,26 @@
 			<field name="arch" type="xml">
 				<xpath expr='//group[@name="acquirer"]' position='after'>
 					<group attrs="{'invisible': [('provider', '!=', 'culqi')]}">
-						<group>
-							<field name="autoconfirm_invoice"/>
-							<field name="autoconfirm_payment"/>
-						</group>
-						
-						<group>
-							<h3>Pruebas</h3>
-							<field name="culqi_public_key" password="True"/>
-							<field name="culqi_private_key" password="True"/>
-						</group>
-						<group >
-							<h3>Producción</h3>
-							<field name="culqi_public_key_produccion" password="True"/>
-							<field name="culqi_private_key_produccion" password="True"/>
-						</group>				
+						<notebook>
+							<page string="LLaves Pruebas">
+								<group>
+									<field name="culqi_public_key" password="True"/>
+									<field name="culqi_private_key" password="True"/>
+								</group>
+							</page>
+							<page string="LLaves Producción">
+								<group>
+									<field name="culqi_public_key_produccion" password="True"/>
+									<field name="culqi_private_key_produccion" password="True"/>
+								</group>
+							</page>
+							<page string="Factura y Pagos">
+								<group>
+									<field name="autoconfirm_invoice"/>
+									<field name="autoconfirm_payment"/>
+								</group>
+							</page>
+						</notebook>				
 					</group>					
 				</xpath>
 			</field>
