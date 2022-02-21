@@ -12,7 +12,7 @@
     'support': 'rockscripts@gmail.com',
     'category': 'Website',
     "images": ["images/banner.png"],
-    'depends': ['base','web','sale','website','website_sale','payment','account'],
+    'depends': ['base','account','sale', 'sale_management','web','website','website_sale','payment'],
     'data': [
                 #'views/payment_acquirer.xml',
                 #'views/sale_order.xml',
