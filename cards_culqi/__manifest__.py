@@ -14,19 +14,19 @@
     "images": ["images/banner.png"],
     'depends': ['base','account','sale', 'sale_management','web','website','website_sale','payment'],
     'data': [
-                #'views/payment_acquirer.xml',
-                #'views/sale_order.xml',
-                #'views/payment_transaction.xml',
-                #'views/partner.xml',
-                #'data/culqi.xml',
+                'views/payment_acquirer.xml',
+                'views/sale_order.xml',
+                'views/payment_transaction.xml',
+                'views/partner.xml',
+                'data/culqi.xml',
             ],
-    #'assets':  {
-    #                'web.assets_frontend': [
-    #                                            '/cards_culqi/static/src/js/jquery.js',
-    #                                            '/cards_culqi/static/src/js/culqi.js',
-    #                                            '/cards_culqi/static/src/css/culqi.css'
-    #                                        ]
-    #            },
+    'assets':  {
+                    'web.assets_frontend': [
+                                                '/cards_culqi/static/src/js/jquery.js',
+                                                '/cards_culqi/static/src/js/culqi.js',
+                                                '/cards_culqi/static/src/css/culqi.css'
+                                            ]
+                },
     'qweb': [
               
             ],
