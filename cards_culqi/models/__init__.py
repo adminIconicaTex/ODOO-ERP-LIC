@@ -3,4 +3,4 @@ from . import payment_acquirer
 from . import sale_order
 from . import payment_transaction
 from . import partner
-from . import account_move
+#from . import account_move
