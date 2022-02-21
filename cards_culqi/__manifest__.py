@@ -15,7 +15,7 @@
     'depends': ['base','account','sale', 'sale_management','web','website','website_sale','payment'],
     'data': [
                 'views/payment_acquirer.xml',
-                'views/sale_order.xml',
+                #'views/sale_order.xml',
                 'views/payment_transaction.xml',
                 'views/partner.xml',
                 'data/culqi.xml',
