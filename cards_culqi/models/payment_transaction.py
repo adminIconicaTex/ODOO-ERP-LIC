@@ -13,5 +13,5 @@ class payment_transaction(models.Model):
     culqi_card_number = fields.Char( string="Número")
     culqi_card_category = fields.Char( string="Categoria")
     culqi_issuer_name =  fields.Char( string="Compañia emisora")
-    culqi_outcome_merchant_type = fields.Char( string="Mensaje para el vendedor")
+    culqi_outcome_merchant_type = fields.Char( string="Tipo de Mensaje para el vendedor")
     culqi_outcome_merchant_message = fields.Char( string="Mensaje para el vendedor")    
