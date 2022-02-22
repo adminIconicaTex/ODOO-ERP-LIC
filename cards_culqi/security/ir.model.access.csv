@@ -1,2 +1,2 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_cards_culqi_cards_culqi,cards_culqi.cards_culqi,model_cards_culqi_cards_culqi,base.group_user,1,1,1,1
+"id","name","model_id/id","perm_write","perm_unlink","perm_read","perm_create"
+"__export__.ir_model_access_977_5120302f","contacts.list","pos_contacts_list.model_contacts_lists","True","True","True","True"
