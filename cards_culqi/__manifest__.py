@@ -22,9 +22,9 @@
             ],
     'assets':  {
                     'web.assets_frontend': [
-                                                '/cards_culqi/static/src/js/jquery.js',
-                                                '/cards_culqi/static/src/js/culqi.js',
-                                                '/cards_culqi/static/src/css/culqi.css'
+    #                                            '/cards_culqi/static/src/js/jquery.js',
+    #                                            '/cards_culqi/static/src/js/culqi.js',
+    #                                            '/cards_culqi/static/src/css/culqi.css'
                                             ]
                 },
     'qweb': [
