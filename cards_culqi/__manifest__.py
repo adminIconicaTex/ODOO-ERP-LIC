@@ -20,13 +20,13 @@
                 #'views/partner.xml',
                 #'data/culqi.xml',
             ],
-    #'assets':  {
-    #                'web.assets_frontend': [
-    #                                            '/cards_culqi/static/src/js/jquery.js',
-    #                                            '/cards_culqi/static/src/js/culqi.js',
-    #                                            '/cards_culqi/static/src/css/culqi.css'
-    #                                        ]
-    #            },
+    'assets':  {
+                    'web.assets_frontend': [
+                                                '/cards_culqi/static/src/js/jquery.js',
+                                                '/cards_culqi/static/src/js/culqi.js',
+                                                '/cards_culqi/static/src/css/culqi.css'
+                                            ]
+                },
     'qweb': [
               
             ],
