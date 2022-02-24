@@ -16,9 +16,9 @@
     'data': [
                 'views/payment_acquirer.xml',
                 'views/sale_order.xml',
-                #'views/payment_transaction.xml',
-                #'views/partner.xml',
-                #'data/culqi.xml',
+                'views/payment_transaction.xml',
+                'views/partner.xml',
+                'data/culqi.xml',
             ],
     'assets':  {
                     'web.assets_frontend': [
