@@ -34,16 +34,14 @@
                                                 '/cards_culqi/static/src/js/culqi.js',
                                                 '/cards_culqi/static/src/css/culqi.css'
                                             ],
-                    #'web.assets_common': [
-                    #                        '/cards_culqi/static/src/js/jquery.js',
-                    #                        '/cards_culqi/static/src/js/swal.js'
-                    #                     ]
                 },
     'qweb': [
               
             ],
     'external_dependencies': {
-                                'python' : ['culqi'],
+                                'python' : [
+                                                'culqi'
+                                            ],
                              },
     'installable': True,
 }
