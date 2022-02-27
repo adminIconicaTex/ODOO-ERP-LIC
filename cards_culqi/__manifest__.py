@@ -34,10 +34,10 @@
                                                 '/cards_culqi/static/src/js/culqi.js',
                                                 '/cards_culqi/static/src/css/culqi.css'
                                             ],
-                    #'web.assets_common':    [
-                    #                            '/cards_culqi/static/src/js/jquery.js',
-                    #                            '/cards_culqi/static/src/js/swal.js'
-                    #                        ]
+                    'web._assets_common_scripts':    [
+                                                        '/cards_culqi/static/src/js/jquery.js',
+                                                        '/cards_culqi/static/src/js/swal.js'
+                                                     ]
                 },
     'qweb': [],
     'external_dependencies': {
