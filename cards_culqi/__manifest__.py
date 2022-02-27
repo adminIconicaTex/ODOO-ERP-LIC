@@ -35,8 +35,7 @@
                                                 '/cards_culqi/static/src/css/culqi.css'
                                             ],
                     'web._assets_common_scripts':    [
-                                                        '/cards_culqi/static/src/js/jquery.js',
-                                                        '/cards_culqi/static/src/js/swal.js'
+                                                        'web/static/lib/jquery/jquery.js',
                                                      ]
                 },
     'qweb': [],
