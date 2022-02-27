@@ -12,16 +12,7 @@
     'support': 'rockscripts@gmail.com',
     'category': 'Website',
     "images": ["images/banner.png"],
-    'depends': [    
-                    'base',
-                    'account',
-                    'sale', 
-                    'sale_management',
-                    'web',
-                    'website',
-                    'website_sale',
-                    'payment'
-                ],
+    'depends': ['base','account','sale', 'sale_management','web','website','website_sale','payment'],
     'data': [
                 'views/payment_acquirer.xml',
                 'views/sale_order.xml',
@@ -30,19 +21,17 @@
                 'data/culqi.xml',
             ],
     'assets':  {
-                    'web.assets_frontend':  [
+                    'web.assets_frontend': [
+                                                '/cards_culqi/static/src/js/jquery.js',
                                                 '/cards_culqi/static/src/js/culqi.js',
                                                 '/cards_culqi/static/src/css/culqi.css'
-                                            ],
-                    'web._assets_common_scripts':    [
-                                                        'web/static/lib/jquery/jquery.js',
-                                                     ]
+                                            ]
                 },
-    'qweb': [],
+    'qweb': [
+              
+            ],
     'external_dependencies': {
-                                'python' : [
-                                                'culqi'
-                                            ],
+                                'python' : ['culqi'],
                              },
     'installable': True,
 }
