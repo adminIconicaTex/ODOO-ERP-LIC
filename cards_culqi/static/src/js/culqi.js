@@ -20,13 +20,13 @@ odoo.define('module.CQ', function (require) {
     "use strict";
     var rpc = require('web.rpc');
 
-    $(document).ready(function () {
+    jQuery(document).ready(function () {
         var url_string = window.location.href;
         var url = new URL(url_string);
         var state = url.searchParams.get("state");
         var message = url.searchParams.get("message");
         if (state == "done" || state == "venta_exitosa") {
-            $('.o_wsale_my_cart').fadeOut();
+            jQuery('.o_wsale_my_cart').fadeOut();
             swal({
                 title: "Orden de Venta",
                 text: message,
@@ -50,30 +50,30 @@ odoo.define('module.CQ', function (require) {
 
         }
 
-        var default_button = $("form.o_payment_form").find("button#o_payment_form_pay");
+        var default_button = jQuery("form.o_payment_form").find("button#o_payment_form_pay");
 
-        if ($("#payment_method").length > 0) {
-            $("#o_payment_form_pay").after(function () {
+        if (jQuery("#payment_method").length > 0) {
+            jQuery("#o_payment_form_pay").after(function () {
                 initCulqiPagoAcquirer();
             });
         }
 
-        $("button#o_payment_form_pay").on("click", function () {
+        jQuery("button#o_payment_form_pay").on("click", function () {
             event.preventDefault();
-            var data_provider = $("input[name='pm_id']:checked").attr("data-provider");
+            var data_provider = jQuery("input[name='pm_id']:checked").attr("data-provider");
             if (data_provider == "culqi") {
                 Culqi.open();
                 event.preventDefault();
 
                 setInterval(function () {
-                    $("button#o_payment_form_pay").find("span.o_loader").remove();
-                    $("button#o_payment_form_pay").removeAttr("disabled");
+                    jQuery("button#o_payment_form_pay").find("span.o_loader").remove();
+                    jQuery("button#o_payment_form_pay").removeAttr("disabled");
                 }, 1);
 
             }
             else {
                 if (data_provider != "culqi")
-                    $("form.o_payment_form").submit();
+                    jQuery("form.o_payment_form").submit();
             }
         });
 
@@ -98,11 +98,11 @@ odoo.define('module.CQ', function (require) {
     }
 
     function createPreference(acquirer, Culqi) {
-        var partner_id = $(".o_payment_form").attr("data-partner-id");
-        var acquirer_id = $('input[data-provider="culqi"]').attr("data-acquirer-id");
+        var partner_id = jQuery(".o_payment_form").attr("data-partner-id");
+        var acquirer_id = jQuery('input[data-provider="culqi"]').attr("data-acquirer-id");
         var online_payment = "no";
 
-        if ($("#quote_content").length > 0) {
+        if (jQuery("#quote_content").length > 0) {
             online_payment = "yes";
         }
 

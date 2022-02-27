@@ -30,14 +30,16 @@
                 'data/culqi.xml',
             ],
     'assets':  {
-                    'web.assets_frontend': [                                                
+                    'web.assets_frontend':  [
                                                 '/cards_culqi/static/src/js/culqi.js',
                                                 '/cards_culqi/static/src/css/culqi.css'
                                             ],
+                    #'web.assets_common':    [
+                    #                            '/cards_culqi/static/src/js/jquery.js',
+                    #                            '/cards_culqi/static/src/js/swal.js'
+                    #                        ]
                 },
-    'qweb': [
-              
-            ],
+    'qweb': [],
     'external_dependencies': {
                                 'python' : [
                                                 'culqi'
