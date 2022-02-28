@@ -113,7 +113,8 @@ class culqi_controller(http.Controller):
         _logger.warning("PARAMS CHARGE")
         _logger.warning(params)
 
-        params_customer = {                    
+        params_customer = {
+                    "address":str(params['customer']['street'])[:99],
                     "address_city": state_name,
                     "country_code": params['customer']['country_code'],
                     "email": params['customer']['email'],
@@ -122,16 +123,7 @@ class culqi_controller(http.Controller):
                     "phone_number": params['customer']['mobile'] if (params['customer']['mobile']) else params['customer']['phone'],
                  }
 
-        try:
-            params_customer["address"] = str(params['customer']['street'])[:99]
-        except:
-            params_customer["address"] = str("-")
-            pass
-        if(params_customer["phone_number"]==None):
-            params_customer["phone_number"] = '0000000'
-
         _logger.warning("process_culqi_payment params")
-        _logger.warning(params)
         _logger.warning(params_customer)
 
         res_customer = customer.create(params_customer)
@@ -421,6 +413,9 @@ class culqi_controller(http.Controller):
                             _logger.warning('order.invoice_ids')
                             _logger.warning(order.invoice_ids)
                             if(order.invoice_ids):
+                                _logger.warning('pay_and_reconcile')
+                                _logger.warning(invoice.journal_id.name)
+                                _logger.warning(invoice.name)
                                 for invoice in order.invoice_ids:
                                     invoice = request.env['account.move'].sudo().browse(int(invoice.id))
                                     invoice.sudo().pay_and_reconcile(invoice.journal_id, invoice.amount_total)
@@ -562,4 +557,4 @@ class culqi_controller(http.Controller):
                         'checkout_items':checkout_items,
                         'currency_name':checkout_items[0]['currency_id'],
                         'acquirer_id':params['acquirer_id'],
-                    }           
+                    }
