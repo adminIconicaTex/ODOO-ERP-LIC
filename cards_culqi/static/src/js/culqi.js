@@ -19,7 +19,7 @@ var global_amount_total = null;
 odoo.define('module.CQ', function (require) {
     "use strict";
     var rpc = require('web.rpc');
-
+    console.log("INN")
     $(document).ready(function () {
         var url_string = window.location.href;
         var url = new URL(url_string);
@@ -50,24 +50,26 @@ odoo.define('module.CQ', function (require) {
 
         }
 
-        var default_button = $("form.o_payment_form").find("button#o_payment_form_pay");
+        var default_button = $("form.o_payment_form").find("button[name='o_payment_submit_button']");
 
         if ($("#payment_method").length > 0) {
-            $("#o_payment_form_pay").after(function () {
+            $("button[name='o_payment_submit_button']").after(function () {
                 initCulqiPagoAcquirer();
             });
         }
 
-        $("button#o_payment_form_pay").on("click", function () {
+        $("button[name='o_payment_submit_button']").on("click", function () {
             event.preventDefault();
-            var data_provider = $("input[name='pm_id']:checked").attr("data-provider");
+            var data_provider = $("input[name='o_payment_radio']:checked").attr("data-provider");
+            console.log("data_provider");
+            console.log(data_provider);
             if (data_provider == "culqi") {
                 Culqi.open();
                 event.preventDefault();
 
                 setInterval(function () {
-                    $("button#o_payment_form_pay").find("span.o_loader").remove();
-                    $("button#o_payment_form_pay").removeAttr("disabled");
+                    $("button[name='o_payment_submit_button']").find("span.o_loader").remove();
+                    $("button[name='o_payment_submit_button']").removeAttr("disabled");
                 }, 1);
 
             }
