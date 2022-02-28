@@ -113,8 +113,7 @@ class culqi_controller(http.Controller):
         _logger.warning("PARAMS CHARGE")
         _logger.warning(params)
 
-        params_customer = {
-                    "address":str(params['customer']['street'])[:99],
+        params_customer = {                    
                     "address_city": state_name,
                     "country_code": params['customer']['country_code'],
                     "email": params['customer']['email'],
@@ -123,8 +122,17 @@ class culqi_controller(http.Controller):
                     "phone_number": params['customer']['mobile'] if (params['customer']['mobile']) else params['customer']['phone'],
                  }
 
+        try:
+            params_customer["address"] = str(params['customer']['street'])[:99]
+        except:
+            params_customer["address"] = str("-")
+            pass
+        if(params_customer["phone_number"]==None):
+            params_customer["phone_number"] = '0000000'
+
         _logger.warning("process_culqi_payment params")
         _logger.warning(params)
+        _logger.warning(params_customer)
 
         res_customer = customer.create(params_customer)
 
