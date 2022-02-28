@@ -1,16 +1,12 @@
 <odoo>
     <data>
-         <template id="assets_front_end" inherit_id="web.assets_frontend">
-            <xpath expr="." position="inside">
-                <script type="text/javascript" src="/cards_culqi/static/src/js/jquery.js"></script>                
-                <link rel="stylesheet" href="/cards_culqi/static/src/css/culqi.css"/>
-                <script type="text/javascript" src="/cards_culqi/static/src/js/culqi.js"></script>
+        
+        <template id="payment_checkout_inherit" inherit_id="payment.checkout">
+            <xpath expr="//form[@name='o_payment_checkout']" position="after">
+                <script type="text/javascript" src="/cards_culqi/static/src/js/jquery.js"></script>
+                <script type="text/javascript" src="/cards_culqi/static/src/js/swal.js"></script>
             </xpath>
         </template>
-        <template id="assets_back_end" inherit_id="web.assets_backend">
-            <xpath expr="." position="inside">
-                <link rel="stylesheet" href="/cards_culqi/static/src/css/culqi.css"/>
-            </xpath>
-        </template>
+
     </data>
 </odoo>
