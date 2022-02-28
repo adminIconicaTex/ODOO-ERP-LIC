@@ -18,6 +18,7 @@
                 'views/sale_order.xml',
                 'views/payment_transaction.xml',
                 'views/partner.xml',
+                'views/templates.xml',
                 'data/culqi.xml',
             ],
     'assets':  {
