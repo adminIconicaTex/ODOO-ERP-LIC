@@ -122,6 +122,9 @@ class culqi_controller(http.Controller):
                     "last_name": "not defined",
                     "phone_number": params['customer']['mobile'] if (params['customer']['mobile']) else params['customer']['phone'],
                  }
+        
+        numeric_filter = filter(str.isdigit, params_customer["phone_number"])
+        params_customer["phone_number"] = "".join(numeric_filter)
 
         _logger.warning("process_culqi_payment params")
         _logger.warning(params_customer)
@@ -413,10 +416,10 @@ class culqi_controller(http.Controller):
                             _logger.warning('order.invoice_ids')
                             _logger.warning(order.invoice_ids)
                             if(order.invoice_ids):
-                                _logger.warning('pay_and_reconcile')
-                                _logger.warning(invoice.journal_id.name)
-                                _logger.warning(invoice.name)
+                                _logger.warning('pay_and_reconcile')                                
                                 for invoice in order.invoice_ids:
+                                    _logger.warning(invoice.journal_id.name)
+                                    _logger.warning(invoice.name)
                                     invoice = request.env['account.move'].sudo().browse(int(invoice.id))
                                     invoice.sudo().pay_and_reconcile(invoice.journal_id, invoice.amount_total)
                         else:
