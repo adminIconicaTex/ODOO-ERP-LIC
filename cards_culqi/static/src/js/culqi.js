@@ -19,7 +19,8 @@ var global_amount_total = null;
 odoo.define('module.CQ', function (require) {
     "use strict";
     var rpc = require('web.rpc');
-    console.log("INN")
+    var Dialog = require('web.Dialog');
+
     $(document).ready(function () {
         var url_string = window.location.href;
         var url = new URL(url_string);
@@ -27,24 +28,14 @@ odoo.define('module.CQ', function (require) {
         var message = url.searchParams.get("message");
         if (state == "done" || state == "venta_exitosa") {
             $('.o_wsale_my_cart').fadeOut();
-            swal({
-                title: "Orden de Venta",
-                text: message,
-                type: "success",
-                showCancelButton: true,
-                cancelButtonText: "OK",
-                closeOnCancel: true
+            Dialog.alert(null, message, {
+                Title: "CULQI - Orden de Venta",
             });
         }
         else {
             if (String(state) != String("null")) {
-                swal({
-                    title: "Solicitud Orden de Venta",
-                    text: message,
-                    type: "warning",
-                    showCancelButton: true,
-                    cancelButtonText: "OK",
-                    closeOnCancel: true
+                Dialog.alert(null, message, {
+                    Title: "CULQI - Solicitud Orden de Venta",
                 });
             }
 
@@ -61,8 +52,7 @@ odoo.define('module.CQ', function (require) {
         $("button[name='o_payment_submit_button']").on("click", function () {
             event.preventDefault();
             var data_provider = $("input[name='o_payment_radio']:checked").attr("data-provider");
-            console.log("data_provider");
-            console.log(data_provider);
+
             if (data_provider == "culqi") {
                 Culqi.open();
                 event.preventDefault();
@@ -130,21 +120,14 @@ odoo.define('module.CQ', function (require) {
                 var amount = parseInt(String(String(parseFloat(preference.amount_total).toFixed(2)).replace(".", "")).replace(",", ""));
                 try {
                     if (amount < 300) {
-                        swal({
-                            title: "Orden de Venta",
-                            text: "Permite totales mayor que 3 Soles o bien 3 Dólares Americanos",
-                            type: "error",
-                            showCancelButton: true,
-                            cancelButtonText: "OK",
-                            closeOnCancel: true
+                        Dialog.alert(null, "Permite totales mayor que 3 Soles o bien 3 Dólares Americanos", {
+                            Title: "CULQI - Orden de Venta",
                         });
                         return false;
                     }
                 }
                 catch (error) { }
 
-
-                //console.log(state_enviroment)
                 if (state_enviroment == 'test') {
                     culqi_enviroment = 'sandbox'
                     Culqi.publicKey = acquirer.culqi_public_key;
@@ -165,8 +148,6 @@ odoo.define('module.CQ', function (require) {
                 odoo_order_customer = customer;
                 checkout_items = response.result.checkout_items;
                 _acquirer_id = acquirer_id;
-                console.log('culqi_transaction');
-                console.log(culqi_transaction);
                 Culqi.settings(culqi_transaction);
             }
         });
@@ -507,6 +488,7 @@ window.culqijs = function (e) {
             }
         } else if ("string" == typeof e.data.object) switch (e.data.object) {
             case "error":
+                /*
                 swal({
                     title: "Orden de Venta",
                     text: e.data.user_message,
@@ -514,7 +496,7 @@ window.culqijs = function (e) {
                     showCancelButton: true,
                     cancelButtonText: "OK",
                     closeOnCancel: true
-                });
+                });*/
                 //alert("%cJS%c" + e.data.type.replace(/_/g, " ") + "%c" + e.data.param + "%c\n" + e.data.merchant_message + ": " + e.data.user_message, "padding: 5px; border-radius: 4px 0 0 4px; background-color: #38d9a9; color: #222b31; text-transform: uppercase; font-size: 10px;font-family: sans-serif", "padding: 5px; background-color: #222b31; color: #ff4f4f; text-transform: uppercase; font-size: 10px;font-family: sans-serif;border-left: 5px solid #ff4f4f;", "padding: 5px; border-radius: 0 4px 4px 0; background-color: #08696b; color: #fff; text-transform: uppercase; font-size: 10px;font-family: sans-serif; font-weight: bold;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3)", "color: #FFF; font-family: sans-serif");
                 var n = function () {
                     var e = navigator.userAgent.toLowerCase();
