@@ -72,6 +72,19 @@ class culqi_controller(http.Controller):
         query = "select autoconfirm_invoice, autoconfirm_payment, name, website_id,company_id, state,  provider, culqi_public_key, culqi_public_key_produccion, culqi_private_key, culqi_private_key_produccion from payment_acquirer where provider = 'culqi' limit 1"
         request.cr.execute(query)
         acquirer = request.cr.dictfetchone()
+        
+        if('website_id' in acquirer):
+            if(acquirer['website_id']):        
+                query = "select id, domain from website where id = " + str(acquirer['website_id'])
+                request.cr.execute(query)
+                _website = request.cr.dictfetchone()
+                if(_website):
+                    if(len(_website['domain'])>0):
+                        base_url = _website['domain']
+                
+        if(_website):
+            if(int(_website['id'])>0):                       
+                _website = request.env['website'].sudo().browse(int())        
 
         culqi = None
 
