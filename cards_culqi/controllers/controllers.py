@@ -384,6 +384,9 @@ class culqi_controller(http.Controller):
         _response['token'] = kw.get('token')
         _response['culqi_preference'] = params['culqi_preference']
 
+        _logger.warning("proces_payment_response")
+        _logger.warning(_response)
+
         return _response
 
         # status 400
