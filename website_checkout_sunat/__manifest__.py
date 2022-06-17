@@ -16,6 +16,7 @@
                 'l10n_pe',
                 'l10n_latam_base',
                 'web',
+                'point_of_sale',
                 'website',
                ],
     'data': [
