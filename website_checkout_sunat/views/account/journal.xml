@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        
+        <record id="account_journal_form_view" model="ir.ui.view">
+            <field name="name">account.journal.form.view</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">               
+                <xpath expr="//page[last()]" position="after">
+                    <page string="Sunat" name='sunat'>
+                        <group>
+                            <field name="document_type" />
+                            <field name="document_type_internal" />
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
