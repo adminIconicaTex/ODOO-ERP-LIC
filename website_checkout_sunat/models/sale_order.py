@@ -62,3 +62,10 @@ class sale_order(models.Model):
         _logger.warning('_prepare_invoice POST values')
         _logger.warning(values)
         return values
+
+
+class ProductPricelist(models.Model):
+    _inherit = "product.pricelist"
+
+    def _check_website_pricelist(self):
+        super(ProductPricelist, self)._check_website_pricelist()
