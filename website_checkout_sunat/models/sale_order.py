@@ -68,4 +68,7 @@ class ProductPricelist(models.Model):
     _inherit = "product.pricelist"
 
     def _check_website_pricelist(self):
-        super(ProductPricelist, self)._check_website_pricelist()
+        try:
+            super(ProductPricelist, self)._check_website_pricelist()
+        except:
+            pass
