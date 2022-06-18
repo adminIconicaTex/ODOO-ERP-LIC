@@ -10,14 +10,14 @@
     'category': 'Uncategorized',
     'version': '15.0',
     'depends': [
-                'base',
-                'account',
-                'base_vat',
-                'l10n_pe',
-                'l10n_latam_base',
-                'web',
-                'point_of_sale',
-                'website',
+                    'base',
+                    'account',
+                    'base_vat',
+                    'l10n_pe',
+                    'l10n_latam_base',
+                    'web',
+                    'point_of_sale',
+                    'website',
                ],
     'data': [
                 'views/l10n_latam_identification_type.xml',
@@ -26,10 +26,10 @@
                 'views/account/journal.xml',
             ],
     'assets': {
-                'web.assets_frontend': [
-                                        '/website_checkout_sunat/static/src/js/jquery.js',
-                                        '/website_checkout_sunat/static/src/js/frontend.js',
-                                        '/website_checkout_sunat/static/src/css/frontend.css'
-                                       ]
+                    'web.assets_frontend': [
+                                            '/website_checkout_sunat/static/src/js/jquery.js',
+                                            '/website_checkout_sunat/static/src/js/frontend.js',
+                                            '/website_checkout_sunat/static/src/css/frontend.css'
+                                        ]
               }
 }
