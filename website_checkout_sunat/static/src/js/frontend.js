@@ -507,7 +507,8 @@ odoo.define('website_checkout_sunat.checkout', function (require) {
             if (l10n_latam_identification_type_id_data) {
                 dt_name = l10n_latam_identification_type_id_data.text;
             }
-
+            console.log("dt_name");
+            console.log(dt_name);
             if (vat) {
                 try {
                     vat = parseFloat(vat);

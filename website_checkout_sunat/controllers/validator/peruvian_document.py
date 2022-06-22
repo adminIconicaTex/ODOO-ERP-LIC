@@ -15,6 +15,11 @@ class peruvian_document(http.Controller):
         _number = post.get('document_number')
         validator = peruvian_document_validator()
         entity = None
+        _logger.warning('************************')
+        _logger.warning('get_document_type')
+        _logger.warning(_type)
+        _logger.warning(_number)
+        _logger.warning('************************')
         if(_type=="ruc"):
             entity = validator.get_by_ruc(_number)
         elif(_type=="dni"):
