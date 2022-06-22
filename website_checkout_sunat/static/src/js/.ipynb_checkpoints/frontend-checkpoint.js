@@ -536,8 +536,7 @@ odoo.define('website_checkout_sunat.checkout', function (require) {
             if (vat) {
                 try {
                     vat = parseFloat(vat);
-                    console.log('validate_vat');
-                    console.log(dt_name);
+
                     if (dt_name == "RUC") {
                         if (String(vat).length <= 11) {
                             // query to company details for auto fill electronic invoices fields
@@ -553,7 +552,6 @@ odoo.define('website_checkout_sunat.checkout', function (require) {
                         }
                     }
                     else if (dt_name == "DNI") {
-                        console.log(dt_name);
                         if (String(vat).length <= 8) {
                             // query to company details for auto fill electronic invoices fields
                             if (_event == "blur")

@@ -1,0 +1,10 @@
+<odoo>
+
+    <data>
+        <function model="ir.model.fields" name="formbuilder_whitelist">
+            <value>res.partner</value>
+            <value eval="['name','vat','l10n_latam_identification_type_id','company_name','phone','email','city','zip','street','street2','country_id','state_id','province_id','city_id','l10n_pe_district']"/>
+        </function>
+    </data>
+
+</odoo>
