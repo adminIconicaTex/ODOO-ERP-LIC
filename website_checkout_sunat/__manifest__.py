@@ -30,6 +30,9 @@
                                             '/website_checkout_sunat/static/src/js/jquery.js',
                                             '/website_checkout_sunat/static/src/js/frontend.js',
                                             '/website_checkout_sunat/static/src/css/frontend.css'
-                                        ]
-              }
+                                           ]
+              },
+    'external_dependencies': {
+                                'python' : ['requests'],
+                             },
 }
